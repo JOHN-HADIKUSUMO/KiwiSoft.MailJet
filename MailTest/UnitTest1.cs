@@ -1,4 +1,5 @@
 using KiwiSoft.MailJet;
+using KiwiSoft.MailJet.Models;
 
 namespace MailTest
 {
@@ -7,7 +8,11 @@ namespace MailTest
         [Fact]
         public void Test1()
         {
-            MailBroker broker = new MailBroker();
+
+
+
+
+            EMailBroker broker = new EMailBroker();
             Assert.True(true);
         }
     }

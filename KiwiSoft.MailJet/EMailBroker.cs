@@ -27,9 +27,23 @@ namespace KiwiSoft.MailJet
             _secret_key = section.GetSection("SECRET_KEY").Value;
         }
 
-        public EMailBroker(string filesetting)
+        public EMailBroker(string jsonPath)
         {
-            _appsettings = filesetting;
+            _appsettings = jsonPath;
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(_appsettings)
+                .Build();
+
+            IConfigurationSection section = config.GetSection(_section);
+            _app_key = section.GetSection("API_KEY").Value;
+            _secret_key = section.GetSection("SECRET_KEY").Value;
+        }
+
+        public EMailBroker(string jsonfilepath, string sectionName)
+        {
+            _appsettings = jsonfilepath;
+            _section = sectionName;
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile(_appsettings)
