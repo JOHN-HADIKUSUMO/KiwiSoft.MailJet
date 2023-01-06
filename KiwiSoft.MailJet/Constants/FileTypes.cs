@@ -39,7 +39,7 @@ namespace KiwiSoft.MailJet.Constants
         public static string Json
         {
 
-            get => "text/json";
+            get => "application/json";
         }
 
         public static string CSV 

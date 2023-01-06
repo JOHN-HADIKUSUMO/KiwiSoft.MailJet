@@ -13,8 +13,8 @@ namespace KiwiSoft.MailJet.Models
         private List<EmailAddress> _cc;
         private List<EmailAddress> _bcc;
         private string _subject;
-        private string _textContent;
-        private string _htmlContent;
+        private string _textPart;
+        private string _htmlPart;
         private List<EmailAttachment> _attachments;
         public EmailAddress From
         {
@@ -45,16 +45,16 @@ namespace KiwiSoft.MailJet.Models
             set { _subject = value; }
         }
 
-        public string TextContent
+        public string TextPart
         {
-            get { return _textContent; }
-            set { _textContent = value; }
+            get { return _textPart; }
+            set { _textPart = value; }
         }
 
-        public string HtmlContent
+        public string HtmlPart
         {
-            get { return _htmlContent; }
-            set { _htmlContent = value; }
+            get { return _htmlPart; }
+            set { _htmlPart = value; }
         }
 
         public List<EmailAttachment> InlinedAttachments
@@ -64,8 +64,8 @@ namespace KiwiSoft.MailJet.Models
         }
         public EmailMessage() {
             _subject = string.Empty;
-            _textContent = string.Empty;
-            _htmlContent = string.Empty;
+            _textPart = string.Empty;
+            _htmlPart = string.Empty;
             _cc = new List<EmailAddress>();
             _bcc = new List<EmailAddress>();
             _attachments = new List<EmailAttachment>();
@@ -73,8 +73,8 @@ namespace KiwiSoft.MailJet.Models
         public EmailMessage(EmailAddress from, EmailAddress to)
         {
             _subject = string.Empty;
-            _textContent = string.Empty;
-            _htmlContent = string.Empty;
+            _textPart = string.Empty;
+            _htmlPart = string.Empty;
             _from = from;
             _to = to;
             _cc = new List<EmailAddress>();
@@ -84,8 +84,8 @@ namespace KiwiSoft.MailJet.Models
         public EmailMessage(EmailAddress from, EmailAddress to, List<EmailAddress> cc, List<EmailAddress> bcc)
         {
             _subject = string.Empty;
-            _textContent = string.Empty;
-            _htmlContent = string.Empty;
+            _textPart = string.Empty;
+            _htmlPart = string.Empty;
             _from = from;
             _to = to;
             _cc = cc;
@@ -95,8 +95,8 @@ namespace KiwiSoft.MailJet.Models
         public EmailMessage(EmailAddress from, EmailAddress to, List<EmailAddress> cc, List<EmailAddress> bcc, List<EmailAttachment> attachments)
         {
             _subject = string.Empty;
-            _textContent = string.Empty;
-            _htmlContent = string.Empty;
+            _textPart = string.Empty;
+            _htmlPart = string.Empty;
             _from = from;
             _to = to;
             _cc = cc;
