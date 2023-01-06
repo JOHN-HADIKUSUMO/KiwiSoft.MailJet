@@ -12,7 +12,7 @@ namespace MailTest
 
 
 
-            EMailBroker broker = new EMailBroker();
+            eMailBroker broker = new eMailBroker();
             Assert.True(true);
         }
     }

@@ -30,5 +30,10 @@ namespace KiwiSoft.MailJet.Models
         
 
         }
+        public EmailAddress(string email, string name)
+        {
+            _email = email;
+            _name = name;
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace KiwiSoft.MailJet.Models
         private string _subject;
         private string _textContent;
         private string _htmlContent;
+        private List<EmailAttachment> _attachments;
         public EmailAddress From
         {
             get { return _from; }
@@ -56,8 +57,51 @@ namespace KiwiSoft.MailJet.Models
             set { _htmlContent = value; }
         }
 
-        public EmailMessage() { 
-        
+        public List<EmailAttachment> InlinedAttachments
+        {
+            get { return _attachments; }
+            set { _attachments = value; }
+        }
+        public EmailMessage() {
+            _subject = string.Empty;
+            _textContent = string.Empty;
+            _htmlContent = string.Empty;
+            _cc = new List<EmailAddress>();
+            _bcc = new List<EmailAddress>();
+            _attachments = new List<EmailAttachment>();
+        }
+        public EmailMessage(EmailAddress from, EmailAddress to)
+        {
+            _subject = string.Empty;
+            _textContent = string.Empty;
+            _htmlContent = string.Empty;
+            _from = from;
+            _to = to;
+            _cc = new List<EmailAddress>();
+            _bcc = new List<EmailAddress>();
+            _attachments = new List<EmailAttachment>();
+        }
+        public EmailMessage(EmailAddress from, EmailAddress to, List<EmailAddress> cc, List<EmailAddress> bcc)
+        {
+            _subject = string.Empty;
+            _textContent = string.Empty;
+            _htmlContent = string.Empty;
+            _from = from;
+            _to = to;
+            _cc = cc;
+            _bcc = bcc;
+            _attachments = new List<EmailAttachment>();
+        }
+        public EmailMessage(EmailAddress from, EmailAddress to, List<EmailAddress> cc, List<EmailAddress> bcc, List<EmailAttachment> attachments)
+        {
+            _subject = string.Empty;
+            _textContent = string.Empty;
+            _htmlContent = string.Empty;
+            _from = from;
+            _to = to;
+            _cc = cc;
+            _bcc = bcc;
+            _attachments = attachments;
         }
     }
 }
