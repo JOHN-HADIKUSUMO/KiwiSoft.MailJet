@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
@@ -23,20 +24,11 @@ namespace KiwiSoft.MailJet.Models
 
         public string Filename {
             get => _filename;
-
-            set
-            {
-                _filename = value;
-            }
         }
+
         public string Base64Content
         {
             get => _base64Content;
-
-            set
-            {
-                _base64Content = value;
-            }
         }
 
         public EmailAttachment() { 
@@ -44,11 +36,11 @@ namespace KiwiSoft.MailJet.Models
 
         }
 
-        internal string GetBase64String(string filename)
+        internal string GetBase64String(string fullpathfilename)
         {
             string result = string.Empty;
             byte[] arrayOfBytes = new byte[10000000];
-            FileStream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            FileStream fileStream = new FileStream(fullpathfilename, FileMode.Open, FileAccess.Read);
             int total = fileStream.Read(arrayOfBytes);
             if(total > 0)
             {
@@ -57,12 +49,11 @@ namespace KiwiSoft.MailJet.Models
             return result;
         }
 
-        public EmailAttachment(string filename, string contentType )
+        public EmailAttachment(string fullpathfilename, string contentType )
         {
-
-            _filename = filename;
+            _filename = Path.GetFileName(fullpathfilename);
             _contentTYpe = contentType;
-            _base64Content = GetBase64String(filename);
+            _base64Content = GetBase64String(fullpathfilename);
         }
     }
 }

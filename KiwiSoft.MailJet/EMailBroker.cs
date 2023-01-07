@@ -2,19 +2,21 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System;
+using System.Text;
 using System.IO;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using KiwiSoft.MailJet.Models;
 using KiwiSoft.MailJet.Constants;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace KiwiSoft.MailJet
 {
     public class eMailBroker
     {
         private readonly EmailMessage _message;
-        private readonly string _api_url = "ttps://api.mailjet.com/v3.1/send";
+        private readonly string _api_url = "https://api.mailjet.com/v3.1/send";
         private readonly string _appsettings = "appsettings.json";
         private readonly string _section = "KiwiSoft.MailJet";
         private readonly string? _app_key = string.Empty;
@@ -81,12 +83,13 @@ namespace KiwiSoft.MailJet
                 };
 
                 string strMessage = JsonSerializer.Serialize(payload);
-                StringContent content = new StringContent(strMessage);
-
+                StringContent content = new StringContent(strMessage, Encoding.UTF8, FileTypes.Json);
+                string securityToken = _app_key + ":" + _secret_key;
+                byte[] arrayOfbytes = Encoding.ASCII.GetBytes(securityToken);
+                string base64String = Convert.ToBase64String(arrayOfbytes);
                 HttpRequestMessage request = new HttpRequestMessage();
                 request.Method = HttpMethod.Post;
-                request.Headers.Add("Content-Type", FileTypes.Json);
-                request.Headers.Add("Authorization", "Basic " + _app_key + ":" + _secret_key);
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", base64String);
                 request.Content = content;
 
                 HttpClient client = new HttpClient();

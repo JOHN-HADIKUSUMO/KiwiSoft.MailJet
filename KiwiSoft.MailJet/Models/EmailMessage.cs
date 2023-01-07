@@ -9,7 +9,7 @@ namespace KiwiSoft.MailJet.Models
     public class EmailMessage
     {
         private EmailAddress _from;
-        private EmailAddress _to;
+        private List<EmailAddress> _to;
         private List<EmailAddress> _cc;
         private List<EmailAddress> _bcc;
         private string _subject;
@@ -21,7 +21,7 @@ namespace KiwiSoft.MailJet.Models
             get { return _from; }
             set { _from = value; }
         }
-        public EmailAddress To
+        public List<EmailAddress> To
         {
             get { return _to; }
             set { _to = value; }
@@ -70,7 +70,7 @@ namespace KiwiSoft.MailJet.Models
             _bcc = new List<EmailAddress>();
             _attachments = new List<EmailAttachment>();
         }
-        public EmailMessage(EmailAddress from, EmailAddress to)
+        public EmailMessage(EmailAddress from, List<EmailAddress> to)
         {
             _subject = string.Empty;
             _textPart = string.Empty;
@@ -81,7 +81,7 @@ namespace KiwiSoft.MailJet.Models
             _bcc = new List<EmailAddress>();
             _attachments = new List<EmailAttachment>();
         }
-        public EmailMessage(EmailAddress from, EmailAddress to, List<EmailAddress> cc, List<EmailAddress> bcc)
+        public EmailMessage(EmailAddress from, List<EmailAddress> to, List<EmailAddress> cc, List<EmailAddress> bcc)
         {
             _subject = string.Empty;
             _textPart = string.Empty;
@@ -92,7 +92,7 @@ namespace KiwiSoft.MailJet.Models
             _bcc = bcc;
             _attachments = new List<EmailAttachment>();
         }
-        public EmailMessage(EmailAddress from, EmailAddress to, List<EmailAddress> cc, List<EmailAddress> bcc, List<EmailAttachment> attachments)
+        public EmailMessage(EmailAddress from, List<EmailAddress> to, List<EmailAddress> cc, List<EmailAddress> bcc, List<EmailAttachment> attachments)
         {
             _subject = string.Empty;
             _textPart = string.Empty;
