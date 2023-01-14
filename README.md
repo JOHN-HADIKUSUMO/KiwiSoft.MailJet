@@ -1,37 +1,167 @@
-# KiwiSoft.Bitly
-#### This nuget package is meant to be used to shrink long Url into shorter one with the helps of Bitly Rest API. You need to create your own subscription with https://bitly.com before you can use this nuget package.
+# KiwiSoft.MailJet
+#### This nuget package is meant to be used as an alternative class library to send an email via MailJet rest api. Please visit https://www.mailjet.com to register and get the credentials.
 
-#### Once you have a subscription, you need to get a group guid id and generate a token. Those informations will be used by the package while communicating with the Bitly Rest API.
+#### Once you have a MailJet subscription, you will given the API KEY and SECRET KEY. Those two information must be provided inside **appsettings.json**.
 
-#### There are two way to pass in GroupId and Token to the instant object
-#### A) By adding new section on appsettings.json as see below :
 ##### appsettings.json
 ```JSON
 {
-  "KiwiSoft.Bitly": {
-    "GroupGuidId": "GKcgnMiNain",
-    "Token": "563e96dfffd3d5e744dca8172719b01aed23eb09"
+  "KiwiSoft.MailJet": {
+    "API_KEY": "82acf8666b21d53940ebca50483e471d",
+    "SECRET_KEY": "83a0047210a026c5a1160cf969cca"
   }
 }
 ```
-And on the C# code, you just need to call new Shortener() to create a new instant.
-```C#
-  Shortener shortener = new Shortener();
-  ReturnURL result = await shortener.CreateAsync("https://edi.wang/post/2019/4/24/how-to-pack-a-net-core-class-library-and-upload-to-nuget");
-  string url = result.Status?result.Url:string.Empty;
-```
-
-#### B) By instantiating Configuration class and pass it to the constructor :
+# Example 1.
+#### Sending an email to one recepient with no file attachment.
 
 ```C#
-  Configuration configuration = new Configuration();
-  configuration.GroupGuid = "GKcgnMiNain";
-  configuration.Token = "563e96dfffd3d5e744dca8172719b01aed23eb09";
+    EmailAddress to = new EmailAddress();
+    to.Email = "james.wan@conjuring.com";
+    to.Name = "James Wan";
 
-  Shortener shortener = new Shortener(configuration);
-  ReturnURL result = await shortener.CreateAsync("https://edi.wang/post/2019/4/24/how-to-pack-a-net-core-class-library-and-upload-to-nuget");
-  string url = result.Status?result.Url:string.Empty;
+    EmailAddress from = new EmailAddress();
+    from.Email = "taylor.caraberon@gmail.com";
+    from.Name = "Taylor Caraberon";
+
+    EmailMessage message = new EmailMessage(from,new List<EmailAddress>() { to });
+    message.Subject = "Your Subscription";
+    message.TextPart = "Dear James, i really enjoy your recent movie. You were doing good job!";
+    message.HtmlPart = "<p>Dear James,<br/><br/> i really enjoy your recent movie. You were doing good job!"</p>;
+
+    eMailBroker broker = new eMailBroker(message);
+    Tuple<bool,string?> result = broker.Send();
 ```
 
-You can find out whether the operation is successful or not by looking at the value of **Status** property on ReturnUrl. And the shortened url can be 
-retrieved from **Url** property.
+# Example 2.
+#### Sending an email to one recepient with file attachment. 
+
+```C#
+    EmailAddress to = new EmailAddress();
+    to.Email = "james.wan@conjuring.com";
+    to.Name = "James Wan";
+
+    EmailAddress from = new EmailAddress();
+    from.Email = "taylor.caraberon@gmail.com";
+    from.Name = "Taylor Caraberon";
+
+    List<EmailAttachment> attachements = new List<EmailAttachment>() { 
+    new EmailAttachment(@"D:\KiwiSoft.MailJet\MailTest\test.pdf",FileTypes.Pdf){}
+    };
+
+    EmailMessage message = new EmailMessage(from,new List<EmailAddress>() { to }, attachements);
+    message.Subject = "Your Subscription";
+    message.TextPart = "Dear James, i really enjoy your recent movie. You were doing good job!";
+    message.HtmlPart = "<p>Dear James,<br/><br/> i really enjoy your recent movie. You were doing good job!"</p>;
+
+    eMailBroker broker = new eMailBroker(message);
+    Tuple<bool,string?> result = broker.Send();
+```
+# Example 3.
+#### Sending an email to one recepient with carbon copy but no file attachment.
+
+```C#
+    EmailAddress to = new EmailAddress();
+    to.Email = "james.wan@conjuring.com";
+    to.Name = "James Wan";
+
+    EmailAddress cc = new EmailAddress();
+    cc.Email = "jenna.ortega@adamsfamily.com";
+    cc.Name = "Jenna Ortega";
+    
+    EmailAddress from = new EmailAddress();
+    from.Email = "taylor.caraberon@gmail.com";
+    from.Name = "Taylor Caraberon";
+
+    EmailMessage message = new EmailMessage(from,new List<EmailAddress>() { to },new List<EmailAddress>() { cc });
+    message.Subject = "Your Subscription";
+    message.TextPart = "Dear James, i really enjoy your recent movie. You were doing good job!";
+    message.HtmlPart = "<p>Dear James,<br/><br/> i really enjoy your recent movie. You were doing good job!"</p>;
+
+    eMailBroker broker = new eMailBroker(message);
+    Tuple<bool,string?> result = broker.Send();
+```
+# Example 4.
+#### Sending an email to one recepient with carbon copy and file attachment. 
+
+```C#
+    EmailAddress to = new EmailAddress();
+    to.Email = "james.wan@conjuring.com";
+    to.Name = "James Wan";
+
+    EmailAddress cc = new EmailAddress();
+    cc.Email = "jenna.ortega@adamsfamily.com";
+    cc.Name = "Jenna Ortega";
+    
+    EmailAddress from = new EmailAddress();
+    from.Email = "taylor.caraberon@gmail.com";
+    from.Name = "Taylor Caraberon";
+
+    List<EmailAttachment> attachements = new List<EmailAttachment>() { 
+    new EmailAttachment(@"D:\KiwiSoft.MailJet\MailTest\test.pdf",FileTypes.Pdf){}
+    };
+
+    EmailMessage message = new EmailMessage(from,new List<EmailAddress>() { to },new List<EmailAddress>() { cc }, attachements);
+    message.Subject = "Your Subscription";
+    message.TextPart = "Dear James, i really enjoy your recent movie. You were doing good job!";
+    message.HtmlPart = "<p>Dear James,<br/><br/> i really enjoy your recent movie. You were doing good job!"</p>;
+
+    eMailBroker broker = new eMailBroker(message);
+    Tuple<bool,string?> result = broker.Send();
+```
+# Example 5.
+#### Sending an email to multiple recepients with no file attachment.
+
+```C#
+    List<EmailAddress> tos = new List<EmailAddress>(){
+        new EmailAddress(){
+            Email = "james.wan@conjuring.com",
+            Name = "James Wan"
+        },
+        new EmailAddress(){
+            Email = "mell.gibson@apocalypso.com",
+            Name = "Mell Gibson"
+        }
+    }
+    EmailAddress from = new EmailAddress();
+    from.Email = "taylor.caraberon@gmail.com";
+    from.Name = "Taylor Caraberon";
+
+    EmailMessage message = new EmailMessage(from,tos);
+    message.Subject = "Your Subscription";
+    message.TextPart = "Dear Movie Directors, i really enjoy you guys recent movies. You all were doing good job!";
+    message.HtmlPart = "<p>Dear Movie Directors,<br/><br/> i really enjoy you guys recent movies. You all were doing good job!"</p>;
+
+    eMailBroker broker = new eMailBroker(message);
+    Tuple<bool,string?> result = broker.Send();
+```
+# Example 6.
+#### Sending an email to multiple recepients with file attachment.
+
+```C#
+    List<EmailAddress> tos = new List<EmailAddress>(){
+        new EmailAddress(){
+            Email = "james.wan@conjuring.com",
+            Name = "James Wan"
+        },
+        new EmailAddress(){
+            Email = "mell.gibson@apocalypso.com",
+            Name = "Mell Gibson"
+        }
+    }
+    EmailAddress from = new EmailAddress();
+    from.Email = "taylor.caraberon@gmail.com";
+    from.Name = "Taylor Caraberon";
+
+    List<EmailAttachment> attachements = new List<EmailAttachment>() { 
+    new EmailAttachment(@"D:\KiwiSoft.MailJet\MailTest\test.pdf",FileTypes.Pdf){}
+    };
+    
+    EmailMessage message = new EmailMessage(from,tos,attachements);
+    message.Subject = "Your Subscription";
+    message.TextPart = "Dear Movie Directors, i really enjoy you guys recent movies. You all were doing good job!";
+    message.HtmlPart = "<p>Dear Movie Directors,<br/><br/> i really enjoy you guys recent movies. You all were doing good job!"</p>;
+
+    eMailBroker broker = new eMailBroker(message);
+    Tuple<bool,string?> result = broker.Send();
+```

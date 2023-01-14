@@ -18,6 +18,14 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>KiwiSoft;MailJet;Email;C#;.NET CORE;Console;Library</PackageTags>
     <NeutralLanguage>en-AU</NeutralLanguage>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackAsTool>True</PackAsTool>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>True</IncludeSymbols>
+    <PackageLicenseExpression>BSD-2-Clause OR MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>first version</PackageReleaseNotes>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
