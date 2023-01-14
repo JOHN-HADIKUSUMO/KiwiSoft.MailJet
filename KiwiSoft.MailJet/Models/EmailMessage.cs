@@ -81,6 +81,43 @@ namespace KiwiSoft.MailJet.Models
             _bcc = new List<EmailAddress>();
             _attachments = new List<EmailAttachment>();
         }
+
+        public EmailMessage(EmailAddress from, List<EmailAddress> to, List<EmailAttachment> attachments)
+        {
+            _subject = string.Empty;
+            _textPart = string.Empty;
+            _htmlPart = string.Empty;
+            _from = from;
+            _to = to;
+            _cc = new List<EmailAddress>();
+            _bcc = new List<EmailAddress>();
+            _attachments = attachments;
+        }
+
+        public EmailMessage(EmailAddress from, List<EmailAddress> to, List<EmailAddress> cc)
+        {
+            _subject = string.Empty;
+            _textPart = string.Empty;
+            _htmlPart = string.Empty;
+            _from = from;
+            _to = to;
+            _cc = cc;
+            _bcc = new List<EmailAddress>();
+            _attachments = new List<EmailAttachment>();
+        }
+
+        public EmailMessage(EmailAddress from, List<EmailAddress> to, List<EmailAddress> cc, List<EmailAttachment> attachments)
+        {
+            _subject = string.Empty;
+            _textPart = string.Empty;
+            _htmlPart = string.Empty;
+            _from = from;
+            _to = to;
+            _cc = cc;
+            _bcc = new List<EmailAddress>();
+            _attachments = attachments;
+        }
+
         public EmailMessage(EmailAddress from, List<EmailAddress> to, List<EmailAddress> cc, List<EmailAddress> bcc)
         {
             _subject = string.Empty;
