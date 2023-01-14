@@ -6,10 +6,33 @@
     <Nullable>enable</Nullable>
     <ApplicationIcon>kiwisoft.mailjet.ico</ApplicationIcon>
     <Title>KiwiSoft.MailJet</Title>
+    <Version>1.0.0</Version>
+    <Authors>John Hadikusumo</Authors>
+    <Company>KiwiSoft</Company>
+    <Description>.NET CORE LIbrary to get access to MailJet Email Services</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/JOHN-HADIKUSUMO/KiwiSoft.MailJet</PackageProjectUrl>
+    <PackageIcon>KiwiSoft.PNG</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/JOHN-HADIKUSUMO/KiwiSoft.MailJet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>KiwiSoft;MailJet;Email;C#;.NET CORE;Console;Library</PackageTags>
+    <NeutralLanguage>en-AU</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="kiwisoft.mailjet.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\KiwiSoft.PNG">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

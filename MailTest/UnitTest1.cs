@@ -22,8 +22,8 @@ namespace MailTest
             message.TextPart = "Hello";
             message.HtmlPart = "<b>Hello</b>";
 
-            eMailBroker broker = new eMailBroker();
-            broker.Send(message);
+            eMailBroker broker = new eMailBroker(message);
+            Tuple<bool,string?> result = broker.Send();
 
             Assert.True(true);
         }
@@ -48,8 +48,8 @@ namespace MailTest
             message.TextPart = "Hello";
             message.HtmlPart = "<b>Hello</b>";
 
-            eMailBroker broker = new eMailBroker();
-            broker.Send(message);
+            eMailBroker broker = new eMailBroker(message);
+            Tuple<bool, string?> result = broker.Send();
 
             Assert.True(true);
         }
